@@ -37,6 +37,10 @@ export const PAYMENT = {
   accountName: "",
   /** Path under /public, e.g. "/qris.png", or "" for none. */
   qrisImage: "/qris.jpg",
+  /** WhatsApp number customers send their payment receipt to (digits with country code), or "" for none. */
+  receiptWhatsApp: "6281513600111",
+  /** The same number as shown on the page. */
+  receiptWhatsAppLabel: "+62 815-1360-0111",
 };
 
 export function bankReady(): boolean {

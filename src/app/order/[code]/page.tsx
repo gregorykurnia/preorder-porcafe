@@ -98,6 +98,19 @@ async function OrderDetails({ params }: { params: Promise<{ code: string }> }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={PAYMENT.qrisImage} alt="QRIS code for paying Porcafe" className="mx-auto mt-4 w-full max-w-xs rounded-2xl" />
             )}
+            {PAYMENT.receiptWhatsApp && (
+              <p className="mt-4">
+                After paying, send your receipt and order number{" "}
+                <strong className="num whitespace-nowrap">{number}</strong> on WhatsApp to{" "}
+                <a
+                  href={`https://wa.me/${PAYMENT.receiptWhatsApp}?text=${encodeURIComponent(`Hi Porcafe, here is my payment receipt for order ${number}.`)}`}
+                  className="num whitespace-nowrap font-semibold text-brand underline underline-offset-2"
+                >
+                  {PAYMENT.receiptWhatsAppLabel}
+                </a>
+                .
+              </p>
+            )}
           </>
         )}
       </section>

@@ -40,6 +40,8 @@ test("customer places an order, and typing survives a validation error", async (
   await expect(page.getByText(/Please pay Rp145\.000 by scanning the QRIS code/)).toBeVisible();
   await expect(page.getByRole("img", { name: "QRIS code for paying Porcafe" })).toBeVisible();
   await expect(page.getByText("transfer note")).toHaveCount(0);
+  const receipt = page.getByRole("link", { name: "+62 815-1360-0111" });
+  await expect(receipt).toHaveAttribute("href", /^https:\/\/wa\.me\/6281513600111\?text=.*PC-001/);
   ayuOrderUrl = page.url();
 });
 
