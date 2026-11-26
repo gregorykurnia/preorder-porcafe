@@ -23,7 +23,6 @@ Light build (owner, 2026-11-26). English UI. Bazaar Thu 3 and Fri 4 Dec 2026.
 | What | Since | Blocks |
 |---|---|---|
 | When preorders close (`ORDERS_CLOSE_AT`) | 2026-11-26 | Nothing (open until set) |
-| Accept Neon's terms on Vercel, then Claude creates the database (Singapore) and its tables | 2026-11-26 | Going live |
 
 ## Follow-ups offered, not built
 Filter by pickup day or slot with a prep list, Excel/CSV export, deleting or editing an order from the staff page.
