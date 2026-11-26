@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { orderNumber, parseOrder } from "@/lib/order";
+import { describe, expect, it, vi } from "vitest";
+import { newOrderKey, orderNumber, parseOrder } from "@/lib/order";
 
 const base = {
   name: "Ayu",
@@ -48,5 +48,22 @@ describe("parseOrder", () => {
   it("formats order numbers", () => {
     expect(orderNumber(7)).toBe("PC-007");
     expect(orderNumber(1234)).toBe("PC-1234");
+  });
+});
+
+describe("newOrderKey", () => {
+  it("works where crypto.randomUUID is missing (plain-http preview) and passes the server's check", () => {
+    vi.stubGlobal("crypto", { getRandomValues: globalThis.crypto.getRandomValues.bind(globalThis.crypto) });
+    try {
+      const a = newOrderKey();
+      const b = newOrderKey();
+      expect(a).not.toBe(b);
+      for (const key of [a, b]) {
+        expect(key).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+        expect(parseOrder({ ...base, clientKey: key, cart: JSON.stringify([{ productId: "coffee-jelly-latte", qty: 1 }]) }).ok).toBe(true);
+      }
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });

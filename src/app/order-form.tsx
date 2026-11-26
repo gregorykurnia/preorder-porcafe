@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowDown, Minus, Plus } from "lucide-react";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { MENU, type Product, findProduct, formatRp } from "@/lib/menu";
-import { type FieldErrors, MAX_QTY, lineLabel } from "@/lib/order";
+import { type FieldErrors, MAX_QTY, lineLabel, newOrderKey } from "@/lib/order";
 import { SLOTS, SLOT_DAYS, slotLabel } from "@/lib/settings";
 import { type PlaceOrderState, placeOrder } from "./actions";
 
@@ -24,7 +24,7 @@ export function OrderForm() {
 
   const [state, formAction, pending] = useActionState(async (prev: PlaceOrderState, fd: FormData) => {
     // One key per order attempt: if a retry repeats a submit that already saved, the server returns the same order.
-    keyRef.current ??= crypto.randomUUID();
+    keyRef.current ??= newOrderKey();
     fd.set("clientKey", keyRef.current);
     return placeOrder(prev, fd);
   }, initialState);
