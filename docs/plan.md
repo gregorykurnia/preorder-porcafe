@@ -18,6 +18,7 @@ Light build (owner, 2026-11-26). English UI. Bazaar Thu 3 and Fri 4 Dec 2026.
 - Colours from the Porcafe menu instead of the default blue taste, since the page is the shop's.
 - Local dev and tests use PGlite in `.data/` (never Neon); production uses Neon over HTTP. Neon (Vercel
   integration, free plan) and the app's functions both run in Singapore (`sin1`); `DATABASE_URL` is set for Production only.
+- Vercel's production branch is `main` (set by hand 2026-11-26: Vercel had copied GitHub's default branch, `staging`).
 
 ## Waiting for the owner
 | What | Since | Blocks |
