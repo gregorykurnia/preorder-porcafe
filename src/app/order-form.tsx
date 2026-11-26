@@ -56,9 +56,6 @@ export function OrderForm() {
 
   return (
     <form action={formAction} noValidate className="lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-start lg:gap-8">
-      <input type="hidden" name="cart" value={cartJson} />
-      <input type="hidden" name="slot" value={slot} />
-
       <div className="space-y-5">
         {MENU.map((cat, i) => (
           <section
@@ -120,12 +117,15 @@ export function OrderForm() {
         aria-labelledby="details-title"
         className="solid mt-6 scroll-mt-4 p-5 sm:p-6 lg:sticky lg:top-6 lg:mt-0"
       >
+        {/* Hidden inputs live here, not at the top of the form, so they don't take cells in the desktop grid. */}
+        <input type="hidden" name="cart" value={cartJson} />
+        <input type="hidden" name="slot" value={slot} />
         <h2 id="details-title" className="display text-[22px] font-semibold text-brand">
           Your order
         </h2>
 
         {lines.length === 0 ? (
-          <p className="mt-2 text-muted">Nothing added yet. Tap Add on anything you’d like.</p>
+          <p className="mt-2 text-muted">Nothing added yet. Add anything you’d like from the menu.</p>
         ) : (
           <ul className="mt-3 space-y-1.5 text-[15px]">
             {lines.map((l) => (
@@ -186,7 +186,7 @@ export function OrderForm() {
                 </label>
               ))}
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label={`Pickup slots on ${day}`}>
+            <div className="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label={`Pickup slots on ${day}`}>
               {SLOTS.filter((s) => s.day === day).map((s) => (
                 <button
                   key={s.id}
@@ -208,7 +208,7 @@ export function OrderForm() {
             <span className="mb-1.5 block text-[15px] font-semibold">
               Notes <span className="font-normal text-muted">(optional)</span>
             </span>
-            <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} maxLength={300} className="field resize-none" placeholder="Anything we should know" />
+            <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} maxLength={300} className="field resize-none" placeholder="Anything we should know?" />
             <FieldError id="notes-error" message={errors.notes} />
           </label>
         </div>

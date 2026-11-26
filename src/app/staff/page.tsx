@@ -96,7 +96,7 @@ async function StaffContent({ searchParams }: { searchParams: PageProps<"/staff"
       ) : shown.length === 0 ? (
         <p className="solid mt-3 p-6 text-center text-muted">No orders match these filters.</p>
       ) : (
-        <ul className="mt-3 grid gap-3 md:grid-cols-2">
+        <ul className="mt-3 grid items-start gap-3 md:grid-cols-2">
           {shown.map((o) => (
             <OrderCard key={o.id} order={o} highlightItem={filters.item} />
           ))}

@@ -22,6 +22,7 @@ test("screens", async ({ browser }) => {
   await order(setup, ["Pork Sate (5 skewers)"], "Kevin", "13:00–14:00");
   await setup.close();
 
+  let first = true;
   for (const [size, viewport] of Object.entries(sizes)) {
     for (const colorScheme of schemes) {
       const ctx = await browser.newContext({ viewport, colorScheme, deviceScaleFactor: 1 });
@@ -46,11 +47,13 @@ test("screens", async ({ browser }) => {
 
       await page.goto("/staff");
       await page.getByLabel("Password").waitFor();
+      await page.waitForTimeout(600);
       await shot("4-staff-login");
       await page.getByLabel("Password").fill("e2e-staff-pass");
       await page.getByRole("button", { name: "Sign in" }).click();
       await page.getByRole("heading", { name: "Orders" }).waitFor();
-      await page.getByTestId("order-card").first().getByRole("checkbox", { name: "Paid" }).click();
+      if (first) await page.getByTestId("order-card").first().getByRole("checkbox", { name: "Paid" }).click();
+      first = false;
       await page.waitForTimeout(800);
       await shot("5-staff", true);
       await page.goto("/staff?item=pork-sate");

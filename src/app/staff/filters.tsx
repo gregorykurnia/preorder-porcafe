@@ -51,7 +51,7 @@ export function Filters({ filters }: { filters: FilterValues }) {
               name="q"
               type="search"
               defaultValue={filters.q}
-              placeholder="Name, phone or PC-012"
+              placeholder="Name or phone"
               className="field pl-11"
               enterKeyHint="search"
             />

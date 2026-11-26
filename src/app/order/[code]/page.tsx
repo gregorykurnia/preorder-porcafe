@@ -36,7 +36,7 @@ async function OrderDetails({ params }: { params: Promise<{ code: string }> }) {
       <header className="text-center">
         <CheckCircle2 className="mx-auto text-good" size={44} strokeWidth={1.7} aria-hidden="true" />
         <h1 className="display mt-2 text-[30px] font-bold leading-tight text-brand">Thank you, {order.name}!</h1>
-        <p className="mt-1 text-muted">
+        <p className="mt-2 text-muted">
           Your order number is <strong className="num whitespace-nowrap text-text">{number}</strong>. Save this page to check on it later.
         </p>
       </header>
