@@ -16,14 +16,14 @@ Light build (owner, 2026-11-26). English UI. Bazaar Thu 3 and Fri 4 Dec 2026.
 - Prices are read from `src/lib/menu.ts` on the server; what the browser sends is never trusted.
 - A retried submit can't create a second order (one key per attempt, unique in the database).
 - Colours from the Porcafe menu instead of the default blue taste, since the page is the shop's.
-- Local dev and tests use PGlite in `.data/` (never Neon); production uses Neon over HTTP.
+- Local dev and tests use PGlite in `.data/` (never Neon); production uses Neon over HTTP. Neon (Vercel
+  integration, free plan) and the app's functions both run in Singapore (`sin1`); `DATABASE_URL` is set for Production only.
 
 ## Waiting for the owner
 | What | Since | Blocks |
 |---|---|---|
 | When preorders close (`ORDERS_CLOSE_AT`) | 2026-11-26 | Nothing (open until set) |
-| Neon login (`neon login`), then the staff password for Vercel | 2026-11-26 | Going live |
-| OK to create the GitHub repo and Vercel project | 2026-11-26 | Going live |
+| Accept Neon's terms on Vercel, then Claude creates the database (Singapore) and its tables | 2026-11-26 | Going live |
 
 ## Follow-ups offered, not built
 Filter by pickup day or slot with a prep list, Excel/CSV export, deleting or editing an order from the staff page.

@@ -1,3 +1,4 @@
 {
-  "git": { "deploymentEnabled": { "staging": false } }
+  "git": { "deploymentEnabled": { "staging": false } },
+  "regions": ["sin1"]
 }
