@@ -9,7 +9,7 @@ import { getDb } from "@/db";
 import { orders } from "@/db/schema";
 import { formatRp } from "@/lib/menu";
 import { lineLabel, orderNumber } from "@/lib/order";
-import { PAYMENT, paymentReady, slotLabel } from "@/lib/settings";
+import { PAYMENT, bankReady, paymentReady, slotLabel } from "@/lib/settings";
 
 export const metadata: Metadata = { title: "Your order · Porcafe", robots: { index: false } };
 
@@ -49,18 +49,25 @@ async function OrderDetails({ params }: { params: Promise<{ code: string }> }) {
           {order.paidAt ? (
             <span className="tag bg-[var(--good-tint)] text-good">Received</span>
           ) : (
-            <span className="tag bg-[var(--warn-tint)] text-[var(--warn)]">Waiting for transfer</span>
+            <span className="tag bg-[var(--warn-tint)] text-[var(--warn)]">Waiting for payment</span>
           )}
         </div>
         {order.paidAt ? (
           <p className="mt-2">We’ve received your payment. See you at the bazaar!</p>
         ) : (
           <>
-            <p className="mt-2">
-              Please transfer <strong className="num">{formatRp(order.total)}</strong> and write{" "}
-              <strong className="num whitespace-nowrap">{number}</strong> in the transfer note.
-            </p>
-            {paymentReady() ? (
+            {bankReady() || !paymentReady() ? (
+              <p className="mt-2">
+                Please transfer <strong className="num">{formatRp(order.total)}</strong> and write{" "}
+                <strong className="num whitespace-nowrap">{number}</strong> in the transfer note.
+              </p>
+            ) : (
+              <p className="mt-2">
+                Please pay <strong className="num">{formatRp(order.total)}</strong> by scanning the QRIS code below. On
+                your phone, save the image and open it in your banking or e-wallet app.
+              </p>
+            )}
+            {bankReady() && (
               <dl className="mt-4 space-y-2 rounded-2xl bg-[var(--accent-tint)] p-4 text-[15px]">
                 {PAYMENT.bank && (
                   <div className="flex justify-between gap-3">
@@ -81,14 +88,15 @@ async function OrderDetails({ params }: { params: Promise<{ code: string }> }) {
                   </div>
                 )}
               </dl>
-            ) : (
+            )}
+            {!paymentReady() && (
               <p className="mt-4 rounded-2xl bg-[var(--accent-tint)] p-4 text-[15px]">
                 Our bank details will be sent to you on WhatsApp.
               </p>
             )}
             {PAYMENT.qrisImage && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={PAYMENT.qrisImage} alt="QRIS code for payment" className="mx-auto mt-4 w-full max-w-xs rounded-2xl" />
+              <img src={PAYMENT.qrisImage} alt="QRIS code for paying Porcafe" className="mx-auto mt-4 w-full max-w-xs rounded-2xl" />
             )}
           </>
         )}

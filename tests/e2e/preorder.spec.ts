@@ -35,7 +35,11 @@ test("customer places an order, and typing survives a validation error", async (
   await expect(page.getByRole("heading", { name: "Thank you, Ayu Test!" })).toBeVisible();
   await expect(page.getByText("PC-001").first()).toBeVisible();
   await expect(page.getByText("Pickup Fri 4 Dec, 10:00–11:00")).toBeVisible();
-  await expect(page.getByText("Waiting for transfer")).toBeVisible();
+  await expect(page.getByText("Waiting for payment")).toBeVisible();
+  // QRIS only, no bank account: scan instructions and the code, no empty bank box.
+  await expect(page.getByText(/Please pay Rp145\.000 by scanning the QRIS code/)).toBeVisible();
+  await expect(page.getByRole("img", { name: "QRIS code for paying Porcafe" })).toBeVisible();
+  await expect(page.getByText("transfer note")).toHaveCount(0);
   ayuOrderUrl = page.url();
 });
 

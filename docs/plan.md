@@ -21,7 +21,6 @@ Light build (owner, 2026-11-26). English UI. Bazaar Thu 3 and Fri 4 Dec 2026.
 ## Waiting for the owner
 | What | Since | Blocks |
 |---|---|---|
-| Bank or QRIS details for the confirmation page (`PAYMENT` in `src/lib/settings.ts`) | 2026-11-26 | Going live |
 | When preorders close (`ORDERS_CLOSE_AT`) | 2026-11-26 | Nothing (open until set) |
 | Neon login (`neon login`), then the staff password for Vercel | 2026-11-26 | Going live |
 | OK to create the GitHub repo and Vercel project | 2026-11-26 | Going live |

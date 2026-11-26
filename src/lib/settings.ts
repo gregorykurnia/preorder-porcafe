@@ -36,11 +36,15 @@ export const PAYMENT = {
   accountNumber: "",
   accountName: "",
   /** Path under /public, e.g. "/qris.png", or "" for none. */
-  qrisImage: "",
+  qrisImage: "/qris.jpg",
 };
 
+export function bankReady(): boolean {
+  return Boolean(PAYMENT.bank && PAYMENT.accountNumber);
+}
+
 export function paymentReady(): boolean {
-  return Boolean((PAYMENT.bank && PAYMENT.accountNumber) || PAYMENT.qrisImage);
+  return bankReady() || Boolean(PAYMENT.qrisImage);
 }
 
 /** ISO time when preorders close (Jakarta time), or null to keep them open. */
